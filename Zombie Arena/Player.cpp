@@ -144,7 +144,7 @@ void Player::update(float elapsedTime, Vector2i mousePosition)
 
 	if (m_RightPressed)
 	{
-		m_Position.y += m_Speed * elapsedTime;
+		m_Position.x += m_Speed * elapsedTime;
 	}
 
 	m_Sprite.setPosition(m_Position);
