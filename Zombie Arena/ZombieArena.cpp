@@ -293,16 +293,18 @@ int main()
 							// Plenty of bullets. Reload
 							bulletsInClip = clipSize;
 							bulletsSpare -= clipSize;
+							reload.play();
 						}
 						else if (bulletsSpare > 0)
 						{
 							// Only a few bullets left
 							bulletsInClip = bulletsSpare;
 							bulletsSpare = 0;
+							reload.play();
 						}
 						else
 						{
-
+							reloadFailed.play();
 						}
 					}
 				}
@@ -369,6 +371,8 @@ int main()
 						currentBullet = 0;
 					}
 					lastPressed = gameTimeTotal;
+
+					shoot.play();
 
 					bulletsInClip--;
 				}
@@ -543,6 +547,8 @@ int main()
 								{
 									state = State::LEVELING_UP;
 								}
+
+								splat.play();
 							}
 						}
 					}
@@ -556,7 +562,7 @@ int main()
 				{
 					if (player.hit(gameTimeTotal))
 					{
-
+						hit.play();
 					}
 
 					if (player.getHealth() <= 0)
@@ -575,12 +581,14 @@ int main()
 			if (player.getPosition().intersects(healthPickup.getPosition()) && healthPickup.isSpawned())
 			{
 				player.increaseHealthLevel(healthPickup.gotIt());
+				pickup.play();
 			}
 
 			// Has the player touched ammo pickup
 			if (player.getPosition().intersects(ammoPickup.getPosition()) && ammoPickup.isSpawned())
 			{
 				bulletsSpare += ammoPickup.gotIt();
+				reload.play();
 			}
 
 			// Size up the health bar
